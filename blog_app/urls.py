@@ -21,4 +21,6 @@ urlpatterns = [
  path('blog_list_admin',adminviews.blog_list_admin, name='blog_list_admin'),
  path('blog_update/<int:id>',userview.blog_update, name='blog_update'),
  path('blog_delete/<int:id>',userview.blog_delete, name='blog_delete'),
+ path('Log_out',userview.Log_out, name='Log_out'),
+
 ]

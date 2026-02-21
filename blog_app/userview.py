@@ -31,11 +31,6 @@ def Log_out(request):
     return redirect('users')
 
 
-from django.contrib.auth.decorators import login_required
-
-from django.contrib.auth.decorators import login_required
-from .models import Users
-
 
 def blog_add(request):
 
