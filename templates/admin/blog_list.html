@@ -1,0 +1,161 @@
+<{% extends "admin/admin_dash.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    /* ===== FORCE FULL PAGE WHITE ===== */
+     body,
+    html,
+    .wrapper,
+    .main-panel,
+    .content-wrapper,
+    .container-fluid {
+        background-color: #ffffff !important;
+    }
+
+    .content-wrapper {
+        padding: 30px;
+    }
+
+    /* ===== HEADER ===== */
+    .page-header h3 {
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+
+    .page-header p {
+        color: #64748b;
+        margin-bottom: 25px;
+    }
+
+    /* ===== STAT CARDS ===== */
+    .stat-card {
+        background: #ffffff !important;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        transition: 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    }
+
+    .stat-number {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2563eb;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    /* ===== TABLE CARD ===== */
+    .table-card {
+        margin-top: 30px;
+        border-radius: 15px;
+        background: #ffffff !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        border: none;
+    }
+
+    .table thead {
+        background: #111827;
+        color: #ffffff;
+    }
+
+    .table th,
+    .table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 14px;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* ===== STATUS BADGE ===== */
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 25px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-started {
+        background-color: #dcfce7;
+        color: #16a34a;
+    }
+
+    .btn-start {
+        border-radius: 25px;
+        padding: 6px 16px;
+        font-size: 12px;
+    }
+</style>
+
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="page-header">
+    <h3>Blogs</h3>
+</div>
+
+<!-- ===== STATISTICS ROW ===== -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-number">{{ data|length }}</div>
+            <div class="stat-label">Total Blog</div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- ===== TABLE SECTION ===== -->
+<div class="card table-card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>title</th>
+                        <th>content</th>
+                        <th>img</th>
+                        <th> Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for i in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+
+                          <td>{{ i.title }}</td>
+                            <td>{{ i.content }}</td>
+                             <td>  <img src="{{ i.document.url }}" alt=""/></td>
+                            <td>{{ i.date }}</td>
+
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-5">
+                            No blog available
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

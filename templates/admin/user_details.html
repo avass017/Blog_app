@@ -1,0 +1,152 @@
+{% extends "admin/admin_dash.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+/* ===== FORCE WHITE BACKGROUND ===== */
+body,
+.content-wrapper,
+.main-panel {
+    background: #ffffff !important;
+}
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-title {
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+}
+
+/* ===== CARD STYLE ===== */
+.table-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    padding: 20px;
+}
+
+/* ===== TABLE STYLE ===== */
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000000;
+    background: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+    background-color: #f5f7fa;
+    transition: 0.2s ease;
+}
+
+.table td {
+    vertical-align: middle;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ===== BUTTON STYLE ===== */
+.btn-edit {
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    border: 1px solid #0d6efd;
+    color: #0d6efd;
+}
+
+.btn-edit:hover {
+    background: #0d6efd;
+    color: #ffffff;
+}
+
+.btn-delete {
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+
+.btn-delete:hover {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+/* ===== EMPTY ROW ===== */
+.empty-row {
+    text-align: center;
+    padding: 30px;
+    color: #6c757d;
+}
+
+</style>
+
+<div class="container mt-4">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h4 class="page-title">users List</h4>
+    </div>
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>bio</th>
+                        <th>document</th>
+
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for i in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.email }}</td>
+                            <td>{{ i.bio }}</td>
+                            <td>  <img src="{{ i.document.url }}" alt=""/></td>
+
+                            <td class="text-center">
+
+                                <a href="{% url 'user_delete' i.id %}""
+                                   class="btn btn-delete">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="empty-row">
+                                No employees found
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "users/dash.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Page Header with Add Complaint Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">your Blog</h2>
+        <a href="{% url 'blog_add' %}" class="btn btn-primary rounded-pill px-4 py-2">
+            + Add Blog
+        </a>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card shadow-sm rounded-4 p-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Title</th>
+                        <th>Contet</th>
+                        <th>File</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.title }}</td>
+                            <td>{{ i.content }}</td>
+                             <td>  <img src="{{ i.document.url }}" alt=""/></td>
+                            <td>{{ i.date }}</td>
+                            <td>
+<a href="{% url 'blog_update' i.id %}"
+   class="btn btn-sm btn-primary me-2">
+   Edit
+</a>
+
+<a href="{% url 'blog_delete' i.id %}"
+   class="btn btn-sm btn-danger">
+   Delete
+</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No complaints found
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+/* ===== PAGE STYLING ===== */
+body {
+    background-color: #f8f9fa !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== TABLE CARD ===== */
+.card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== TABLE STYLING ===== */
+.table thead th {
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f3f6;
+    transition: 0.2s ease;
+}
+
+/* ===== BUTTON STYLING ===== */
+.btn-primary {
+    background-color: #0d6efd;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+/* ===== EMPTY ROW ===== */
+.text-muted {
+    font-style: italic;
+    font-size: 14px;
+}
+</style>
+
+{% endblock %}
